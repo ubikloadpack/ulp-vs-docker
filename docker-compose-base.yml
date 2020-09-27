@@ -1,0 +1,48 @@
+version: '3.4'
+
+x-worker:
+    &worker-configuration
+    image: ubikloadpack/video-streaming-plugin:${UBIK_JMETER_VIDEOSTREAMING_PLUGIN_VERSION}
+    build: .
+    ulimits:
+        nproc:
+            soft: ${ULIMITS_NPROC_SOFT}
+            hard: ${ULIMITS_NPROC_HARD}
+        nofile:
+            soft: ${ULIMITS_NOFILE_SOFT}
+            hard: ${ULIMITS_NOFILE_HARD}
+    sysctls:
+        net.core.somaxconn: ${SYSCTLS_NET_CORE_SOMAXCONN}
+        net.ipv4.tcp_max_syn_backlog: ${SYSCTLS_NET_IPV4_TCP_MAX_SYN_BACKLOG}
+        net.ipv4.tcp_window_scaling: ${SYSCTLS_NET_IPV4_TCP_WINDOW_SCALING}
+        net.ipv4.tcp_keepalive_probes: ${SYSCTLS_NET_IPV4_TCP_KEEPALIVE_PROBES}
+        net.ipv4.tcp_keepalive_intvl: ${SYSCTLS_NET_IPV4_TCP_KEEPALIVE_INTVL}
+        net.ipv4.tcp_fin_timeout: ${SYSCTLS_NET_IPV4_TCP_FIN_TIMEOUT}
+        net.ipv4.tcp_keepalive_time: ${SYSCTLS_NET_IPV4_TCP_KEEPALIVE_TIME}
+        net.ipv4.tcp_tw_reuse: ${SYSCTLS_NET_IPV4_TCP_TW_REUSE}
+        net.ipv4.tcp_sack: ${SYSCTLS_NET_IPV4_TCP_SACK}
+        net.ipv4.tcp_syncookies: ${SYSCTLS_NET_IPV4_TCP_SYNCOOKIES}
+        net.ipv4.ip_local_port_range: ${SYSCTLS_NET_IPV4_IP_LOCAL_PORT_RANGE}
+    volumes:
+        - ${ROOT_DIR}/license:/jmeter/license:ro
+        - ${ROOT_DIR}/logs/workers:/jmeter/logs/workers
+        - ${ROOT_DIR}/properties/user-worker.properties:/opt/apache-jmeter-${JMETER_VERSION}/bin/user.properties:ro
+        - ${ROOT_DIR}/properties/saveservice-worker.properties:/opt/apache-jmeter-${JMETER_VERSION}/bin/saveservice.properties:ro
+
+services:
+    jmeter-controller:
+        image: ubikloadpack/video-streaming-plugin:${UBIK_JMETER_VIDEOSTREAMING_PLUGIN_VERSION}
+        build: .
+        command:
+            - sh
+            - -c
+            - |
+              echo ${JVM_ARGS_CONTROLLER}
+              echo ${CONTROLLER_EXTRA_JMETER_PROPERTIES}
+              echo ${REMOTE_WORKERS_TRIGGERED}
+              set JVM_ARGS=${JVM_ARGS_CONTROLLER}
+              jmeter -Jserver.rmi.ssl.disable=true -Jclient.tries=3 ${CONTROLLER_EXTRA_JMETER_PROPERTIES} -n -t jmx/test.jmx -l results/result.jtl -j logs/controller/jmeter.log -X -R ${REMOTE_WORKERS_TRIGGERED} -f -e -o report
+        volumes:
+            - ${ROOT_DIR}:/jmeter
+            - ${ROOT_DIR}/properties/user-controller.properties:/opt/apache-jmeter-${JMETER_VERSION}/bin/user.properties:ro
+            - ${ROOT_DIR}/properties/saveservice-controller.properties:/opt/apache-jmeter-${JMETER_VERSION}/bin/saveservice.properties:ro
