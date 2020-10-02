@@ -50,7 +50,7 @@ ENV TZ ${TIMEZONE}
 ENV VERBOSE_GC -verbose:gc -Xloggc:/jmeter/logs/gc_%p_%t.log -XX:+PrintGCDetails -XX:+PrintGCCause -XX:+PrintTenuringDistribution -XX:+PrintHeapAtGC -XX:+PrintGCApplicationConcurrentTime -XX:+PrintAdaptiveSizePolicy -XX:+PrintGCApplicationStoppedTime -XX:+PrintGCDateStamps
 WORKDIR /jmeter
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["jmeter", "--?"]
+CMD ["jmeter"]
 
 FROM BARE
 LABEL maintainer="support@ubikloadpack.com"
