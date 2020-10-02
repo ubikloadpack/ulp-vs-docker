@@ -1,5 +1,6 @@
 ARG JDK8_VERSION=jdk8u242-b08-alpine
 ARG JMETER_VERSION=5.3
+ARG TIMEZONE=Europe/Paris
 ARG JMETER_HOME=/opt/apache-jmeter-${JMETER_VERSION}
 ARG JMETER_BIN=${JMETER_HOME}/bin
 ARG JMETER_PLUGINS_MANAGER_VERSION=1.4
@@ -44,7 +45,7 @@ RUN chmod +x /usr/local/bin/entrypoint.sh \
  && rm -fr /tmp/* \
  && apk add --no-cache tzdata
  # Set the correct timezone for the container
-ENV TZ Europe/Paris
+ENV TZ ${TIMEZONE}
 # Used to place gc logs in the /logs folder
 ENV VERBOSE_GC -verbose:gc -Xloggc:/jmeter/logs/gc_%p_%t.log -XX:+PrintGCDetails -XX:+PrintGCCause -XX:+PrintTenuringDistribution -XX:+PrintHeapAtGC -XX:+PrintGCApplicationConcurrentTime -XX:+PrintAdaptiveSizePolicy -XX:+PrintGCApplicationStoppedTime -XX:+PrintGCDateStamps
 WORKDIR /jmeter
