@@ -20,21 +20,21 @@ Then, .env is completed by a script generated property REMOTE_WORKERS_TRIGGERED 
 
 ROOT_DIR must contain the path to the root directory of the following structure
 
-.
-|-- jmx/
-|---- test.jmx
-|-- license/
-|---- ubik-streaming-plugin.license
-|-- properties/
-|---- user-controller.properties
-|---- user-worker.properties
-|---- saveservice-controller.properties
-|---- saveservice-worker.properties
-|-- logs/
-|---- controller/
-|---- workers/
-|-- results/
-|-- report/
+.  
+|-- jmx/  
+|---- test.jmx  
+|-- license/  
+|---- ubik-streaming-plugin.license  
+|-- properties/  
+|---- user-controller.properties  
+|---- user-worker.properties  
+|---- saveservice-controller.properties  
+|---- saveservice-worker.properties  
+|-- logs/  
+|---- controller/  
+|---- workers/  
+|-- results/  
+|-- report/  
 
 with:
 - test.jmx, the test plan to execute
