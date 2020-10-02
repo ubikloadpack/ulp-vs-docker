@@ -19,6 +19,7 @@ Then, .env is completed by a script generated property REMOTE_WORKERS_TRIGGERED 
 	- -o report
 
 ROOT_DIR must contain the path to the root directory of the following structure
+
 .
 |-- jmx/
 |---- test.jmx
@@ -76,7 +77,7 @@ When running this script, you will be ask how many workers you want to run betwe
 5. Cleanup files docker-compose.yml, .env, and a temporary yml file used to store the workers services after the end of the test
 
 
-## generateFolderTree .sh
+## generateFolderTree.sh
 
 Before the first run of run-jmeter-in-docker, you can use this script on UNIX systems to create the required data folder.
 1. Run this script
