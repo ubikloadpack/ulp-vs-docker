@@ -28,8 +28,6 @@ ROOT_DIR must contain the path to the root directory of the following structure
 |-- properties/  
 |---- user-controller.properties  
 |---- user-worker.properties  
-|---- saveservice-controller.properties  
-|---- saveservice-worker.properties  
 |-- logs/  
 |---- controller/  
 |---- workers/  
@@ -41,8 +39,6 @@ with:
 - ubik-streaming-plugin.license, the license file for the ubik plugin
 - user-controller.properties, the file overriding user.properties on the controller
 - user-worker.properties, the file overriding user.properties on every worker
-- saveservice-controller.properties, the file overriding saveservice.properties on the controller
-- saveservice-worker.properties, the file overriding saveservice.properties on every worker
 - logs/: The folder that will contain log files after the execution
 	- the garbage collector log file of the controller
     - in controller/ the jmeter.log of the controller jmeter
