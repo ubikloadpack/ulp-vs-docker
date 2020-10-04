@@ -10,6 +10,7 @@ ARG JSON_LIB_VERSION=2.4
 
 FROM adoptopenjdk/openjdk8:${JDK8_VERSION} as BARE
 LABEL maintainer="support@ubikloadpack.com"
+LABEL Description="Docker image for UbikLoadPack Video streaming plugin for Apache JMeter" Vendor="Ubik-Ingenierie" website="https://ubikloadpack.com"
 STOPSIGNAL SIGKILL
 ARG MIRROR=https://www-eu.apache.org/dist/jmeter/binaries
 ARG ALPN_VERSION=8.1.13.v20181017
