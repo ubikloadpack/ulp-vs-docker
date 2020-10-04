@@ -2,8 +2,7 @@ version: '3.4'
 
 x-worker:
     &worker-configuration
-    image: ubikloadpack/video-streaming-plugin:${UBIK_JMETER_VIDEOSTREAMING_PLUGIN_VERSION}
-    build: .
+    image: ubikloadpack/ulp_videostreaming_plugin:${UBIK_JMETER_VIDEOSTREAMING_PLUGIN_VERSION}
     ulimits:
         nproc:
             soft: ${ULIMITS_NPROC_SOFT}
@@ -27,12 +26,10 @@ x-worker:
         - ${ROOT_DIR}/license:/jmeter/license:ro
         - ${ROOT_DIR}/logs/workers:/jmeter/logs/workers
         - ${ROOT_DIR}/properties/user-worker.properties:/opt/apache-jmeter-${JMETER_VERSION}/bin/user.properties:ro
-        - ${ROOT_DIR}/properties/saveservice-worker.properties:/opt/apache-jmeter-${JMETER_VERSION}/bin/saveservice.properties:ro
 
 services:
     jmeter-controller:
-        image: ubikloadpack/video-streaming-plugin:${UBIK_JMETER_VIDEOSTREAMING_PLUGIN_VERSION}
-        build: .
+        image: ubikloadpack/ulp_videostreaming_plugin:${UBIK_JMETER_VIDEOSTREAMING_PLUGIN_VERSION}
         command:
             - sh
             - -c
@@ -45,4 +42,3 @@ services:
         volumes:
             - ${ROOT_DIR}:/jmeter
             - ${ROOT_DIR}/properties/user-controller.properties:/opt/apache-jmeter-${JMETER_VERSION}/bin/user.properties:ro
-            - ${ROOT_DIR}/properties/saveservice-controller.properties:/opt/apache-jmeter-${JMETER_VERSION}/bin/saveservice.properties:ro
